@@ -2,7 +2,7 @@ const express = require('express')
 var cors = require('cors');
 // var helmet = require('helmet');
 const cookieParser = require('cookie-parser');
-let verifyJWT = require('./MiddleWare/verifyJWT')
+// let verifyJWT = require('./MiddleWare/verifyJWT')
 
 const App = Express();
 
@@ -117,7 +117,7 @@ App.get('/api', (req, res) => {
   App.use('/uploads',Express.static('uploads'))
   
   
-  App.use(verifyJWT);
+  // App.use(verifyJWT);
 
 App.all('/', (req, res) => {
     console.log("Just got a request!")
