@@ -1,4 +1,4 @@
-const express = require('express')
+const Express = require('express')
 var cors = require('cors');
 // var helmet = require('helmet');
 const cookieParser = require('cookie-parser');
@@ -123,4 +123,8 @@ App.all('/', (req, res) => {
     console.log("Just got a request!")
     res.send('Yo!')
 })
-App.listen(process.env.PORT || 3000)
+const port =process.env.PORT || 3000;
+
+App.listen(port,() => {
+  console.log("Server Running on port:",port);
+})
