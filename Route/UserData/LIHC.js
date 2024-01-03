@@ -14,7 +14,7 @@ let GetAll = async (req, res) => {
 }
 
 let GetOne = async (req, res) => {
-    const C = await UserLIHCModel.findOne({ UserEmail: req.params.email }).select('-__v');
+    const C = await UserLIHCModel.findOne({ UserTracking_FK: req.params.id }).select('-__v');
     try {
         res.send(C);
     } catch (err) {
@@ -62,12 +62,10 @@ let UpdateUserLIHC = async (req, res) => {
 
         //! you must check Full schema for Updating in Other Tables
 
-        UpdateUserLIHC.UserEmail = UserTrack_Object.UserEmail;
         UpdateUserLIHC.relationshipStatus = UserTrack_Object.relationshipStatus;
         UpdateUserLIHC.wifeDOB = UserTrack_Object.wifeDOB;
         UpdateUserLIHC.husbandDOB = UserTrack_Object.husbandDOB;
         UpdateUserLIHC.gift = UserTrack_Object.gift;
-        UpdateUserLIHC.giftExtended = UserTrack_Object.giftExtended;
         UpdateUserLIHC.businessIncomeOptions = UserTrack_Object.businessIncomeOptions;
         UpdateUserLIHC.benefits = UserTrack_Object.benefits;
         UpdateUserLIHC.centreLinkBenefits = UserTrack_Object.centreLinkBenefits;
@@ -122,7 +120,7 @@ let DeleteUsers = async (req, res) => {
 
 router.get("/", GetAll);
 
-router.get("/GetOne/:email", GetOne);
+router.get("/GetOne/:id", GetOne);
 
 router.post("/Add", PostUser);
 

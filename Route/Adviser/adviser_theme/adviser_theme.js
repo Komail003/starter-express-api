@@ -47,7 +47,7 @@ MyRouter.patch("/Update/:id", upload.single("ImageUrl"), async (req, res) => {
 
     if (!Updateadviser_theme) {
       return res.status(404).send("Adviser theme not found");
-    }d
+    }
 
     // Store the previous image path for deletion
     const previousImagePath = Updateadviser_theme.ImageUrl;
@@ -233,7 +233,7 @@ MyRouter.get("/getOneDomain/:Domain", async (req, res) => {
 
     const filename = fullPath.split("\\").pop();
     // console.log("filename", filename);
-    adviser_theme.ImageUrl = "https://lucky-bull-slacks.cyclic.app/uploads/" + filename;
+    adviser_theme.ImageUrl = "http://localhost:7000/uploads/" + filename;
     res.send(adviser_theme);
   } catch (error) {
     console.error("Error: ", error);

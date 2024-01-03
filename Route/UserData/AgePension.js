@@ -14,7 +14,7 @@ let GetAll = async (req, res) => {
 }
 
 let GetOne = async (req, res) => {
-    const C = await UserAgePensionModel.findOne({ UserEmail: req.params.email }).select('-__v');
+    const C = await UserAgePensionModel.findOne({ UserTracking_FK: req.params.id }).select('-__v');
     try {
         res.send(C);
     } catch (err) {
@@ -62,13 +62,14 @@ let UpdateUserAgePensions = async (req, res) => {
 
         //! you must check Full schema for Updating in Other Tables
 
-        UpdateUserAgePension.UserEmail = UserTrack_Object.UserEmail;
         UpdateUserAgePension.relationshipStatus = UserTrack_Object.relationshipStatus;
         UpdateUserAgePension.wifeDOB = UserTrack_Object.wifeDOB;
         UpdateUserAgePension.husbandDOB = UserTrack_Object.husbandDOB;
-        UpdateUserAgePension.ownHome = UserTrack_Object.ownHome;
+        UpdateUserAgePension.home = UserTrack_Object.home;
+        UpdateUserAgePension.homeloan = UserTrack_Object.homeloan;
         UpdateUserAgePension.homeLoan = UserTrack_Object.homeLoan;
-        UpdateUserAgePension.homeLoanAmount = UserTrack_Object.homeLoanAmount;
+        UpdateUserAgePension.husbandInvestmentLoan = UserTrack_Object.husbandInvestmentLoan;
+        UpdateUserAgePension.wifeInvestmentLoan = UserTrack_Object.wifeInvestmentLoan;
         UpdateUserAgePension.gift = UserTrack_Object.gift;
         UpdateUserAgePension.giftExtended = UserTrack_Object.giftExtended;
         UpdateUserAgePension.husbandCars = UserTrack_Object.husbandCars;
@@ -102,6 +103,9 @@ let UpdateUserAgePensions = async (req, res) => {
         UpdateUserAgePension.wifeGFatherCurrentAccountValue = UserTrack_Object.wifeGFatherCurrentAccountValue;
         UpdateUserAgePension.gFatherAnnualPensionWife = UserTrack_Object.gFatherAnnualPensionWife;
         UpdateUserAgePension.gFatherAnnualDeductibleWife = UserTrack_Object.gFatherAnnualDeductibleWife;
+        UpdateUserAgePension.loanOnFunds = UserTrack_Object.loanOnFunds;
+        UpdateUserAgePension.husbandInvestmentLoan = UserTrack_Object.husbandInvestmentLoan;
+        UpdateUserAgePension.wifeInvestmentLoan = UserTrack_Object.wifeInvestmentLoan;
         UpdateUserAgePension.yourOtherIncomeStream = UserTrack_Object.yourOtherIncomeStream;
         UpdateUserAgePension.yourAnnualPension = UserTrack_Object.yourAnnualPension;
         UpdateUserAgePension.yourAnnualDeductible = UserTrack_Object.yourAnnualDeductible;
@@ -118,16 +122,6 @@ let UpdateUserAgePensions = async (req, res) => {
         UpdateUserAgePension.netProfit = UserTrack_Object.netProfit;
         UpdateUserAgePension.netAssetsWife = UserTrack_Object.netAssetsWife;
         UpdateUserAgePension.netProfitWife = UserTrack_Object.netProfitWife;
-        UpdateUserAgePension.fortnight = UserTrack_Object.fortnight;
-        UpdateUserAgePension.fortnightAnnual = UserTrack_Object.fortnightAnnual;
-        UpdateUserAgePension.ALower = UserTrack_Object.ALower;
-        UpdateUserAgePension.AHigher = UserTrack_Object.AHigher;
-        UpdateUserAgePension.AAssessable = UserTrack_Object.AAssessable;
-        UpdateUserAgePension.AExcess = UserTrack_Object.AExcess;
-        UpdateUserAgePension.ILower = UserTrack_Object.ILower;
-        UpdateUserAgePension.IHigher = UserTrack_Object.IHigher;
-        UpdateUserAgePension.IAssessable = UserTrack_Object.IAssessable;
-        UpdateUserAgePension.IExcess = UserTrack_Object.IExcess;
   
 
         UpdateUserAgePension = await UpdateUserAgePension.save();
@@ -152,7 +146,7 @@ let DeleteUsers = async (req, res) => {
 
 router.get("/", GetAll);
 
-router.get("/GetOne/:email", GetOne);
+router.get("/GetOne/:id", GetOne);
 
 router.post("/Add", PostUser);
 

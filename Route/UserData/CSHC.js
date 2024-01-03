@@ -14,13 +14,16 @@ let GetAll = async (req, res) => {
 }
 
 let GetOne = async (req, res) => {
-    const C = await UserCSHCModel.findOne({ UserEmail: req.params.email }).select('-__v');
+    // console.log("ID i got is = ",req.params.id);
+    const C = await UserCSHCModel.findOne({ UserTracking_FK: req.params.id }).select('-__v');
+    // console.log("Data Found",C);
     try {
         res.send(C);
     } catch (err) {
         res.send("Error: " + err);
     }
 }
+
 
 let PostUser = async (req, res) => {
     const UserTrackModal_test = req.body;
@@ -62,7 +65,6 @@ let UpdateUserCSHC = async (req, res) => {
 
         //! you must check Full schema for Updating in Other Tables
 
-        UpdateUserCSHC.UserEmail = UserTrack_Object.UserEmail;
         UpdateUserCSHC.relationshipStatus = UserTrack_Object.relationshipStatus;
         UpdateUserCSHC.wifeDOB = UserTrack_Object.wifeDOB;
         UpdateUserCSHC.husbandDOB = UserTrack_Object.husbandDOB;
@@ -85,7 +87,6 @@ let UpdateUserCSHC = async (req, res) => {
         UpdateUserCSHC.otherIncomeOptions = UserTrack_Object.otherIncomeOptions;
         UpdateUserCSHC.overseasIncome = UserTrack_Object.overseasIncome;
         UpdateUserCSHC.overseasIncomeWife = UserTrack_Object.overseasIncomeWife;
-        UpdateUserCSHC.yourAnnualPensionWife = UserTrack_Object.yourAnnualPensionWife;
         UpdateUserCSHC.accountBasedPensionOptions = UserTrack_Object.accountBasedPensionOptions;
         UpdateUserCSHC.husbandPensionAccountBased = UserTrack_Object.husbandPensionAccountBased;
         UpdateUserCSHC.wifePensionAccountBased = UserTrack_Object.wifePensionAccountBased;
@@ -114,8 +115,7 @@ let DeleteUsers = async (req, res) => {
 
 router.get("/", GetAll);
 
-router.get("/GetOne/:email", GetOne);
-
+router.get("/GetOne/:id", GetOne);
 router.post("/Add", PostUser);
 
 router.patch("/Update", UpdateUserCSHC);
