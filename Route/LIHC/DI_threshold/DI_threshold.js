@@ -34,14 +34,14 @@ MyRouter.get("/", async (req, res) => {
   }
 });
 
-// MyRouter.get("/", async (req, res) => {
-//   const C = await DI_thresholdDetails.find();
-//   try {
-//     res.send(C);
-//   } catch (err) {
-//     res.send("Error: " + err);
-//   }
-// });
+MyRouter.get("/threshold", async (req, res) => {
+  const C = await DI_thresholdDetails.find();
+  try {
+    res.send(C);
+  } catch (err) {
+    res.send("Error: " + err);
+  }
+});
 
 MyRouter.post("/Add", async (req, res) => {
   const NewDI_threshold = req.body;
