@@ -7,13 +7,41 @@ const DI_thresholdSchema = require("../../../schema/LIHC/DI_threshold/DI_thresho
 // const bcrypt = require('bcrypt');
 
 MyRouter.get("/", async (req, res) => {
-  const C = await DI_thresholdDetails.find();
+  
   try {
-    res.send(C);
+    console.log("komail")
+    let myObj = {
+      _id: "65800573517576f7d0bac579",
+      adviserName: "Usama",
+      Password: "$2b$10$YD5bOTtn7ODwl.4aXJptJ.tNeNvJ68VJ2srcc1FO56lJ6x7dKi3jq",
+      CompanyName: "Adviser Denaro",
+      Designation: "Full Stack Developer",
+      CompanyAddress: "Collage Road",
+      CompanyEmail: "admin@gmail.com",
+      CompanyPhone: "+92-3124513576",
+      DOJ: "1991-05-30",
+      Package: "free",
+      Opt: "1",
+      SoftDelete: 0,
+      RefreshToken: "Logged in",
+      role: "1984",
+      Domain: "Usama_Faheem"
+    };
+  
+    return res.status(200).send({ accessToken: "Successfully Login", AdviserData: myObj });
   } catch (err) {
     res.send("Error: " + err);
   }
 });
+
+// MyRouter.get("/", async (req, res) => {
+//   const C = await DI_thresholdDetails.find();
+//   try {
+//     res.send(C);
+//   } catch (err) {
+//     res.send("Error: " + err);
+//   }
+// });
 
 MyRouter.post("/Add", async (req, res) => {
   const NewDI_threshold = req.body;

@@ -20,21 +20,17 @@ const Mongoose = require("mongoose");
 const url = "mongodb+srv://admin:admin1234@dhobionline.agzb49y.mongodb.net/";
 
 
-Mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+Mongoose.connect(url, { useNewUrlParser: true });
 const Mongo = Mongoose.connection;
 
 Mongo.on("open", () => {
   console.log("MongoDB Connected!");
 });
 
-Mongo.on('error', (err) => {
-  console.error('MongoDB connection error:', err);
-});
 
 App.get('/api', (req, res) => {
   res.send('Hello, This is React Backend!');
 });
-
 
 
 
@@ -131,8 +127,10 @@ App.use('/uploads',Express.static('uploads'))
 
 App.use(verifyJWT);
 
+
 const port = process.env.PORT || 7000;
 
+
 App.listen(port, () => {
-  console.log("Server Running on port:", port);
+  console.log("Server Running on port:",port);
 });
