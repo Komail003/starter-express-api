@@ -8,9 +8,9 @@ require('dotenv').config();
 const AdviserModal = require("../../../Model/Adviser/Adviser");
 
 let LoggingIn = async (req, res) => {
+  console.log("hy login")
   try {
     const CheckUser = req.body;
-
     // Use await to wait for the query result
     const FoundUser = await AdviserModal.findOne({ CompanyEmail: CheckUser.Email }).exec();
     // console.log(FoundUser);
