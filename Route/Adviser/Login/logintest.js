@@ -19,11 +19,10 @@ MyRouter.post("/login", async (req, res) => {
     SoftDelete: 0,
     RefreshToken: "Logged in",
     role: "1984",
-    Domain: "Usama_Faheem",
-  
+    Domain: "Usama_Faheem"
   };
 
-  return res.status(200).send({ accessToken: "Successfully Login", AdviserData: FoundUser });
+  return res.status(200).send({ accessToken: "Successfully Login", AdviserData: myObj });
 //   try {
 //     console.log(req.body);
 
