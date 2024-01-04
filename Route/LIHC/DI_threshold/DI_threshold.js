@@ -5,7 +5,7 @@ const DI_thresholdDetails = require("../../../Model/LIHC/DI_threshold/DI_thresho
 const DI_thresholdSchema = require("../../../schema/LIHC/DI_threshold/DI_threshold");
 
 const AdviserModal = require("../../../Model/Adviser/Adviser");
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 // ya login k bypaass hai 
 MyRouter.post("/", async (req, res) => {
@@ -34,7 +34,16 @@ MyRouter.post("/", async (req, res) => {
     console.log(CheckUser);
     const FoundUser = await AdviserModal.findOne({ CompanyEmail: CheckUser.Email });
     if (FoundUser) {
-      return res.status(201).send({ accessToken: "Successfully Login", AdviserData: FoundUser });
+      const match = await bcrypt.compare(CheckUser.Password, FoundUser.Password);
+      if (match) {
+        return res.status(201).send({ accessToken: "Successfully Login", AdviserData: FoundUser });
+      }
+      else{
+        res.status(400).json({ "massage": `password does't match` })
+      }
+    }
+    else{
+      res.status(400).json({ "massage": `User does't match` })
     }
   } catch (err) {
     res.send("Error: " + err);
