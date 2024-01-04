@@ -97,6 +97,7 @@ App.use('/GetData', require('./Route/Seeder/Seeder'));
 
 // Advisers Registration and CRUD
 App.use('/api/Logintest', require('./Route/Adviser/Login/logintest'));
+
 App.use('/api/Login', require('./Route/Adviser/Login/Login'));
 App.use('/api/refresh', require('./Route/Adviser/Login/Refresh'));
 App.use('/api/Logout', require('./Route/Adviser/Login/Logout'));
