@@ -1,5 +1,5 @@
 const Express = require('express');
-var cors = require('cors');
+// var cors = require('cors');
 // var helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 let verifyJWT = require('./MiddleWare/verifyJWT')
@@ -10,7 +10,7 @@ const App = Express();
 App.use(Express.json());
 App.use(cookieParser());
 
-App.use(cors());
+// App.use(cors());
 // App.use(helmet());
 
 // App.use(Express.json({ limit: '20mb' }));
