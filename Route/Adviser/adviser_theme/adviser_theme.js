@@ -233,7 +233,7 @@ MyRouter.get("/getOneDomain/:Domain", async (req, res) => {
 
     const filename = fullPath.split("\\").pop();
     // console.log("filename", filename);
-    adviser_theme.ImageUrl = "https://nervous-teal-neckerchief.cyclic.app/uploads/" + filename;
+    adviser_theme.ImageUrl = "https://plain-jade-betta.cyclic.app//uploads/" + filename;
     res.send(adviser_theme);
   } catch (error) {
     console.error("Error: ", error);
