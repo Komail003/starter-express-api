@@ -8,7 +8,7 @@ require('dotenv').config();
 const AdviserModal = require("../../../Model/Adviser/Adviser");
 
 let LoggingIn = async (req, res) => {
-  console.log("hy login")
+  // console.log("hy login")
   try {
     const CheckUser = req.body;
     // Use await to wait for the query result
@@ -68,7 +68,7 @@ let LoggingIn = async (req, res) => {
         res.status(400).json({ "massage": `password does't match` })
       }
     } else {
-      res.status(400).json({ "massage": `Account Found` })
+      res.status(400).json({ "massage": `Account not Found` })
     }
 
   } catch (error) {

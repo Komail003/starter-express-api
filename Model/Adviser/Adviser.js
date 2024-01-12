@@ -32,8 +32,12 @@ const Adviser_Table = new Mongoose.Schema({
   CompanyPhone: {
     type: String
   },
+
+  Subscribed_for: {
+    type: String
+  },
   
-  DOJ: {
+  Subscribe_Date: {
     type: String
   },
 
@@ -49,16 +53,19 @@ const Adviser_Table = new Mongoose.Schema({
     type: Number,
     require:false
   },
+
   RefreshToken: {
     type: String,
     default:"",
     require:false
   },
+
   role: {
     type: String,
     default:"1984",
     require:false
   },
+
   Domain:{
   type: String,
   require: true,

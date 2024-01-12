@@ -11,7 +11,7 @@ App.use(Express.json());
 App.use(cookieParser());
 
 App.use(cors());
-// App.use(helmet());
+// App.use(helmet())
 
 // App.use(Express.json({ limit: '20mb' }));
 
@@ -32,6 +32,8 @@ App.get('/api', (req, res) => {
   res.send('Hello, This is React Backend!');
 });
 
+//advisor login Api is in this rout
+// Route/LIHC/DI_threshold/DI_threshold
 
 
 // super admin

@@ -9,6 +9,19 @@ const admin_schema= new Mongoose.Schema({
 
 	password:{
 		type: String
+	},
+
+	name:{
+		type: String
+	},
+
+	designation:{
+		type: String
+	},
+
+	role:{
+		type: String,
+		default:"622437",
 	}
 
 })

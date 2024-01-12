@@ -233,7 +233,9 @@ MyRouter.get("/getOneDomain/:Domain", async (req, res) => {
 
     const filename = fullPath.split("\\").pop();
     // console.log("filename", filename);
-    adviser_theme.ImageUrl = "https://desert-sand-ladybug-vest.cyclic.app//uploads/" + filename;
+    // adviser_theme.ImageUrl = "https://desert-sand-ladybug-vest.cyclic.app/uploads/" + filename;
+    const baseUrl = `${req.protocol}://${req.get("host")}/`;
+    adviser_theme.ImageUrl = `${baseUrl}/uploads/${filename}`;
     res.send(adviser_theme);
   } catch (error) {
     console.error("Error: ", error);

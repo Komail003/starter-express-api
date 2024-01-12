@@ -43,7 +43,7 @@ MyRouter.post("/", async (req, res) => {
       }
     }
     else{
-      res.status(400).json({ "massage": `User does't match` })
+      res.status(400).json({ "massage": `User does't match` })  
     }
   } catch (err) {
     res.send("Error: " + err);
@@ -62,7 +62,7 @@ MyRouter.get("/threshold", async (req, res) => {
 MyRouter.post("/Add", async (req, res) => {
   const NewDI_threshold = req.body;
   const { error } = DI_thresholdSchema(NewDI_threshold);
-  // if (error) return res.status(400).send(error.details[0].message);
+  // if (error) return res.status(400).send(error.details[0].message);  
 
   if (error) {
     res.status(404).send({ message: error.details[0].message });
