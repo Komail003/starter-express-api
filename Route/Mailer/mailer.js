@@ -3,21 +3,22 @@ const MyRouter = Express.Router();
 const nodemailer = require('nodemailer');
 
 
-
-// Create a transporter using SMTP with your email configuration
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'usamasaeed3k@gmail.com', // Your Gmail email address
-    pass: 'flpsrpubkwvylcys' // Use the app password generated in your Google account
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
+    host: 'smtp.office365.com',
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+        user: 'admin@denarolink.com.au',
+        pass: '&6LjfQ##InXHkM&s'
+    },
+    tls: {
+        rejectUnauthorized: false
+    }
 });
 
+
 // HTML email template
-const htmlTemplate = `
+const generateHtmlTemplate = (recipientName) =>`
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,7 +94,10 @@ const htmlTemplate = `
         </div>
 
         <section>
-            <p>Hello [Recipient Name],</p>
+            <p>Hello ${recipientName.name},</p>
+            <p>Hello ${recipientName.phone},</p>
+
+
 
             <p>We are excited to share some exciting news with you:</p>
 
@@ -113,25 +117,32 @@ const htmlTemplate = `
 `;
 
 // Email content
-const mailOptions = {
-  from: 'usamasaeed3k@gmail.com',
-  to: 'usamasaeed3k@gmail.com',
-  subject: 'Test Email with HTML Template',
-  html: htmlTemplate // Include the HTML content here
-};
-
-
 
 MyRouter.post("/", async (req, res) => {
-  // Send email
-transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return console.error('Error:', error);
+    const myObj=req.body;
+    const userEmail=req.body.email;
+    const toEmails = ['farheenmohsin08@gmail.com', 'usamasaeed3k@gmail.com', '0021mian@gmail.com'];
+
+
+    const mailOptions = {
+        from: 'admin@denarolink.com.au',
+        // to: userEmail,
+        to: toEmails.join(','),
+
+        // BCC:"",
+        subject: 'Test Email with HTML Template',
+        html: generateHtmlTemplate(myObj) // Include the HTML content here
+      };
+    try {
+        // Send email
+
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent:', info.response);
+        res.send("Email sent");
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send("Error sending email");
     }
-    console.log('Email sent:', info.response);
-    res.send("Email sent");
-  });  
-    
 });
 
 

@@ -9,7 +9,9 @@ const Adviser_Table_schema = (threshold) => {
     Designation: Joi.string(),
     CompanyAddress: Joi.string(),
     CompanyEmail: Joi.string().email({ tlds: { allow: false } }),
-    CompanyPhone: Joi.string().pattern(/^\+\d{1,4}-\d{1,14}$/),
+    // CompanyPhone: Joi.string().pattern(/^\+\d{1,4}-\d{1,14}$/),
+    CompanyPhone: Joi.string(),
+
     Subscribed_for: Joi.string(),
     Subscribe_Date: Joi.string(),
     Package: Joi.string(),

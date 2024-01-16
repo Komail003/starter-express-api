@@ -215,27 +215,24 @@ MyRouter.get("/getOne/:Adviser_Fk", async (req, res) => {
 });
 
 MyRouter.get("/getOneDomain/:Domain", async (req, res) => {
-  // console.log("adviser_theme", req.params.CompanyEmail);
 
-  const adviser_Details2 = await adviser_Details.findOne({Domain: req.params.Domain});
-
-  const adviserID= adviser_Details2._id;
-  // console.log("adviser_theme", adviser_Details2);
-  // res.send(adviserID)
+  const adviser_DetailsOne = await adviser_Details.findOne({Domain: req.params.Domain});
+  if (!adviser_DetailsOne) {
+    return res.status(400).send("Adviser theme not found");
+  }
+  const adviserID= adviser_DetailsOne._id;
 
   try {
     const adviser_theme = await adviser_themeDetails.findOne({
       Adviser_Fk: adviserID,
     });
-    // console.log(adviser_theme);
-    // const fullPath = 'uploads\\1702295067947.jpg';
+   
     const fullPath = adviser_theme.ImageUrl;
 
     const filename = fullPath.split("\\").pop();
-    // console.log("filename", filename);
-    // adviser_theme.ImageUrl = "https://desert-sand-ladybug-vest.cyclic.app/uploads/" + filename;
-    const baseUrl = `https://${req.get("host")}/`;
-    adviser_theme.ImageUrl = `${baseUrl}/uploads/${filename}`;
+    const baseUrl =`https://${req.get("host")}/`;
+    adviser_theme.ImageUrl =`${baseUrl}/uploads/${filename}`;
+    
     res.send(adviser_theme);
   } catch (error) {
     console.error("Error: ", error);

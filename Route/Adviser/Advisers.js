@@ -1,7 +1,8 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
+
 
 const AdviserModal = require("../../Model/Adviser/Adviser");
 const AdviserSchema = require("../../schema/Adviser/Adviser");
@@ -13,31 +14,27 @@ let GetAll = async (req, res) => {
   } catch (err) {
     res.send("Error: " + err);
   }
-};
+}
 
 let PostAdviser = async (req, res) => {
-  console.log(req.body);
+
   const AdviserModal_test = req.body;
   const { error } = AdviserSchema(AdviserModal_test);
   // if (error) return res.status(400).send(error.details[0].message);
   if (error) {
     res.status(404).send({ message: error.details[0].message });
-  } else {
+  }
+  else {
     // console.log("Advisers else")
     const domain = await AdviserModal.findOne({ Domain: req.body.Domain });
     if (domain) return res.status(400).send("Domain already exist.");
 
     const duplicate = await AdviserModal.find({
-      $or: [
-        { CompanyEmail: AdviserModal_test.CompanyEmail },
-        { adviserName: AdviserModal_test.adviserName },
-      ],
+      $or: [{ CompanyEmail: AdviserModal_test.CompanyEmail }, { adviserName: AdviserModal_test.adviserName }]
     }).exec();
     // console.log(duplicate);
 
-    if (duplicate.length > 0) {
-      return res.status(400).json({ message: "User already exist" });
-    }
+    if (duplicate.length > 0) { return res.status(400).json({ "message": "User already exist" }) };
 
     try {
       const hashedPwd = await bcrypt.hash(AdviserModal_test.Password, 10);
@@ -49,21 +46,23 @@ let PostAdviser = async (req, res) => {
       AdviserModal_store = await AdviserModal_store.save();
       // console.log("AdviserModal_store after save")
 
+
+      
+
       res.send(AdviserModal_store);
+
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      res.status(500).json({ "message": error.message });
     }
   }
-};
+}
 
 let UpdateAdvisers = async (req, res) => {
   const AdviserModal_test = req.body;
 
   try {
     // Find the existing adviser by ID
-    const UpdateAdviser = await AdviserModal.findOne({
-      _id: AdviserModal_test._id,
-    });
+    const UpdateAdviser = await AdviserModal.findOne({ _id: AdviserModal_test._id });
 
     if (!UpdateAdviser) {
       return res.status(404).send({ message: "Adviser not found" });
@@ -75,7 +74,11 @@ let UpdateAdvisers = async (req, res) => {
       return res.status(400).send({ message: error.details[0].message });
     }
 
-    const hashedPwd = await bcrypt.hash(AdviserModal_test.Password, 10);
+    // if (AdviserModal_test.Domain !== UpdateAdviser.Domain) {
+    //   const domain = await AdviserModal.findOne({ Domain: AdviserModal_test.Domain });
+    //   if (domain) return res.status(400).send("Domain already exist.");
+    //   UpdateAdviser.Domain = AdviserModal_test.Domain;
+    // }  //! Bad ma Dakhan ga Domain ko update karna k masla 
 
     // Update adviser properties
     UpdateAdviser.adviserName = AdviserModal_test.adviserName;
@@ -98,7 +101,7 @@ let UpdateAdvisers = async (req, res) => {
   } catch (err) {
     res.status(500).send("Error: " + err);
   }
-};
+}
 
 let DeleteAdvisers = async (req, res) => {
   const AdviserModal_test = req.params.id;
@@ -109,23 +112,23 @@ let DeleteAdvisers = async (req, res) => {
   } catch (Error) {
     res.send("Error: " + Error);
   }
-};
+}
 
 router.patch("/update_password/:id", async (req, res) => {
-  console.log("update password", req.body);
+  console.log("update password",req.body)
   const UpdateAdvisor = await AdviserModal.findOne({ _id: req.params.id });
-  let previousPasswordDB = UpdateAdvisor.Password;
-  let previousPassword_User = req.body.password;
+  let previousPasswordDB= UpdateAdvisor.Password;
+  let previousPassword_User= req.body.password;
 
-  const validPassword = await bcrypt.compare(
-    req.body.password,
-    previousPasswordDB
-  );
+
+  const validPassword = await bcrypt.compare(req.body.Password, previousPasswordDB); // change
   if (!validPassword) return res.status(400).send(false);
-  console.log("password matched");
+  console.log("password matched")
 
   const hashedPwd = await bcrypt.hash(req.body.new_password, 10);
   UpdateAdvisor.Password = hashedPwd;
+  
+
 
   try {
     const C = await UpdateAdvisor.save();
@@ -142,5 +145,7 @@ router.post("/Add", PostAdviser);
 router.patch("/Update", UpdateAdvisers);
 
 router.delete("/Delete/:id", DeleteAdvisers);
+
+
 
 module.exports = router;

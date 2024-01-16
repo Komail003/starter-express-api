@@ -61,7 +61,7 @@ MyRouter.patch("/Update/:id", async (req, res) => {
   const UpdateAdmin = await Super_Admin_Details.findOne({ _id: req.params.id });
   
     UpdateAdmin.email = req.body.email,
-    UpdateAdmin.password = req.body.password,
+    // UpdateAdmin.password = req.body.password,
     UpdateAdmin.name = req.body.name,
     UpdateAdmin.designation = req.body.designation,
     UpdateAdmin.role = req.body.role
@@ -79,8 +79,10 @@ MyRouter.patch("/Update/:id", async (req, res) => {
 MyRouter.patch("/update_password/:id", async (req, res) => {
   console.log("update password",req.body)
   const UpdateAdmin = await Super_Admin_Details.findOne({ _id: req.params.id });
+  if (!UpdateAdmin) return res.status(400).send("user not found");
+
   let previousPasswordDB= UpdateAdmin.password;
-  let previousPassword_User= req.body.password;
+
 
 
   const validPassword = await bcrypt.compare(req.body.password, previousPasswordDB);
