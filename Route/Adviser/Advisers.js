@@ -82,7 +82,7 @@ let UpdateAdvisers = async (req, res) => {
 
     // Update adviser properties
     UpdateAdviser.adviserName = AdviserModal_test.adviserName;
-    UpdateAdviser.Password = hashedPwd;
+
     UpdateAdviser.CompanyName = AdviserModal_test.CompanyName;
     UpdateAdviser.Designation = AdviserModal_test.Designation;
     UpdateAdviser.CompanyAddress = AdviserModal_test.CompanyAddress;

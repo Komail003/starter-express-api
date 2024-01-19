@@ -121,6 +121,10 @@ App.use('/api/UserTrack-LIHC', require('./Route/UserData/LIHC'));
 
 // Email
 App.use('/api/email', require('./Route/Mailer/mailer'));
+App.use('/api/emailReminder', require('./Route/Mailer/reminderMailer'));
+App.use('/api/pdfEmail', require('./Route/Mailer/pdfMailer'));
+
+
 
 // adviser_theme
 App.use('/api/adviser_theme', require('./Route/Adviser/adviser_theme/adviser_theme'));

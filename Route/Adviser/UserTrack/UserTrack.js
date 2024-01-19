@@ -220,8 +220,9 @@ let CreateDuplicate = async (req, res) => {
         UserTrack_store = await UserTrack_store.save();
 
         console.log("AddUserLIHC_OBJ Sava k bad =", UserTrack_store);
+        console.log("id is this ", UserTrack_storeID);
         
-        return res.status(200).send({ message: "Duplicate User Complete" });
+        return res.status(200).send({ message: "Duplicate User Complete",id:UserTrack_storeID });
       }
       else if (calculatorName == "CSHC") {
         console.log("CSHC", FoundUserID);
@@ -273,8 +274,9 @@ let CreateDuplicate = async (req, res) => {
         UserTrack_store = await UserTrack_store.save();
 
         console.log("AddUserCSHC_OBJ Sava k bad =", UserTrack_store);
+        console.log("id is this ", UserTrack_storeID);
         
-        return res.status(200).send({ message: "Duplicate User Complete" });
+        return res.status(200).send({ message: "Duplicate User Complete",id:UserTrack_storeID  });
       }
        else if (calculatorName == "Age-Pension") {
         console.log("Age-Pension", FoundUserID);
@@ -360,8 +362,9 @@ let CreateDuplicate = async (req, res) => {
         UserTrack_store = await UserTrack_store.save();
 
         console.log("AddUserAgePension_OBJ Sava k bad =", UserTrack_store);
-        
-        return res.status(200).send({ message: "Duplicate User Complete" });
+        console.log("id is this ", UserTrack_storeID);
+
+        return res.status(200).send({ message: "Duplicate User Complete",id:UserTrack_storeID  });
       }
 
       // res.send(UserTrack_store);

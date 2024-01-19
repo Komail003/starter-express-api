@@ -82,14 +82,23 @@ MyRouter.patch("/Update/:id", upload.single("ImageUrl"), async (req, res) => {
         // File doesn't exist, use the provided filename
         Updateadviser_theme.ImageUrl = req.file.path;
       }
+    } else {
+      let url = req.body.ImageUrl;
+      let desiredPart = url.split("/uploads/")[1];
+      console.log(desiredPart,url)
+      Updateadviser_theme.ImageUrl = desiredPart;
     }
+
+
+    console.log("Updateadviser_theme.ImageUrl= ",Updateadviser_theme.ImageUrl)
+
 
     const updatedTheme = await Updateadviser_theme.save();
 
     // Delete the previous image
-    if (previousImagePath && previousImagePath !== Updateadviser_theme.ImageUrl) {
-      await fs.unlink(previousImagePath);
-    }
+    // if (previousImagePath && previousImagePath !== Updateadviser_theme.ImageUrl) {
+    //   await fs.unlink(previousImagePath);
+    // }
 
     res.send(updatedTheme);
   } catch (err) {
@@ -100,6 +109,7 @@ MyRouter.patch("/Update/:id", upload.single("ImageUrl"), async (req, res) => {
 
 MyRouter.post("/Add", upload.single("ImageUrl"), async (req, res) => {
   let Addadviser_theme = new adviser_themeDetails({
+    name: req.body.name,
     color: req.body.color,
     Email: req.body.Email,
     Website: req.body.Website,
@@ -230,7 +240,7 @@ MyRouter.get("/getOneDomain/:Domain", async (req, res) => {
     const fullPath = adviser_theme.ImageUrl;
 
     const filename = fullPath.split("\\").pop();
-    const baseUrl =`https://${req.get("host")}/`;
+    const baseUrl =`http://${req.get("host")}`;
     adviser_theme.ImageUrl =`${baseUrl}/uploads/${filename}`;
     
     res.send(adviser_theme);
