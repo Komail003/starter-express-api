@@ -74,23 +74,23 @@ const generateHtmlTemplate = (myObj) =>`
 MyRouter.post("/", async (req, res) => {
     const myObj=req.body;
     const userEmail=req.body.email;
-    // const toEmails = ['zaidbinshahid92@gmail.com', 'usamasaeed3k@gmail.com', 'tufailameen62@gmail.com'];
-    const toEmails = ['usamasaeed3k@gmail.com'];
+    const toEmails = ['usamafaheemahmed80@gmail.com', 'usamasaeed3k@gmail.com', 'tufailameen62@gmail.com'];
+    // const toEmails = ['usamasaeed3k@gmail.com'];
 
 
 
     const mailOptions = {
         from: 'admin@denarolink.com.au',
-        // to: userEmail,
-        to: toEmails.join(','),
+        to: userEmail,
+        // to: toEmails.join(','),
 
-        // bcc:"",
+        bcc:toEmails.join(','),
         subject: 'Test Email with HTML Template',
         html: generateHtmlTemplate(myObj) // Include the HTML content here
       };
     try {
         // Send email
-        console.log('Email sent:');
+        // console.log('Email sent:');
 
         const info = await transporter.sendMail(mailOptions);
         console.log('Email sent:', info.response);

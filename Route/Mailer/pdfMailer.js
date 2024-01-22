@@ -329,9 +329,13 @@ async function sendEmail(myObj, pdfBytes) {
       user: myObj.SmtpMail,
       pass: myObj.AppPassword,
     },
-    tls: {
-      rejectUnauthorized: false,
-    },
+    // tls: {
+    //   rejectUnauthorized: false,
+    // },
+      // Conditionally set tls or ssl based on SmtpSecure value
+      [myObj.SmtpSecure === 'tls' ? 'tls' : 'ssl']: {
+        rejectUnauthorized: false,
+      }
   });
 
   const mailOptions = {
