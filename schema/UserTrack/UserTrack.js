@@ -4,6 +4,7 @@ const UerTracking_schema = (threshold) => {
   const schema = Joi.object({
     _id: Joi.string(), // Allow _id field
     UserName: Joi.string(),
+    Adviser_FK: Joi.object(),
     UserEmail: Joi.string().email({ tlds: { allow: false } }),
     DateTime: Joi.string(),
     Calculator: Joi.string(),

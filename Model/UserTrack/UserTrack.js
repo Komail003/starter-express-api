@@ -9,6 +9,10 @@ const UserTracking = new Mongoose.Schema({
     UserEmail: {
         type: String
     },
+    Adviser_FK:{
+        type: Mongoose.Schema.Types.ObjectId,
+        ref: 'Advisers'
+      },
     DateTime: {
         type: String
     },

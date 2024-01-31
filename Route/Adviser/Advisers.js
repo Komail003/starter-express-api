@@ -7,6 +7,8 @@ const bcrypt = require('bcrypt');
 const AdviserModal = require("../../Model/Adviser/Adviser");
 const AdviserSchema = require("../../schema/Adviser/Adviser");
 
+let myURl;
+
 let GetAll = async (req, res) => {
   const C = await AdviserModal.find();
   try {
@@ -133,6 +135,41 @@ router.patch("/update_password/:id", async (req, res) => {
   try {
     const C = await UpdateAdvisor.save();
     res.send(C);
+  } catch (err) {
+    res.send("Error: " + err);
+  }
+});
+
+// Middleware function to log full URL
+const logFullUrl = (req, res, next) => {
+  console.log('Full URL:', req.originalUrl);
+  myURl=req.originalUrl;
+  next(); // Call the next middleware in the stack
+};
+
+// Apply middleware to log full URL for all routes
+router.use(logFullUrl);
+
+router.patch("/update_Forget_password/", async (req, res) => {
+
+    const password=req.body.password;
+    const userEmail=req.body.email;
+
+    console.log("myURl12345",myURl)
+
+  const Adviser = await AdviserModal.findOne({ CompanyEmail: userEmail});
+
+      if (!Adviser) {
+        return res.status(404).send({ message: "User not found" });
+      }
+
+
+  const hashedPwd = await bcrypt.hash(password, 10);
+  Adviser.Password = hashedPwd;
+  
+  try {
+    const C = await Adviser.save();
+    res.send(true);
   } catch (err) {
     res.send("Error: " + err);
   }

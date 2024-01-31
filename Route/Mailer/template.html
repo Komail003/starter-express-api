@@ -17,8 +17,17 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
-    h1 {
+    .title {
       color: #4CAF50;
+      /* padding-bottom: 1px; */
+      margin: 0px;
+    }
+    .company_name {
+      text-align: center;
+      color: #4CAF50;
+      padding-bottom: 1px;
+      margin: 0px;
+
     }
     p {
       color: #555;
@@ -33,16 +42,28 @@
     }
 	
   </style>
+
 </head>
 <body>
   <div class="container">
-    <h1>Your Subscription is Expiring Soon!</h1>
+    <h1 class="company_name">Adviser Link</h1>
+
+    <h2 class="title">Client Assignment!</h2>
     <p>Hello [User],</p>
-    <p>We hope you've been enjoying our service. We wanted to let you know that your subscription is expiring in [X] days. To continue enjoying uninterrupted access to our amazing features, please renew your subscription at your earliest convenience.</p>
-    <p>Renew now by clicking the button below:</p>
-    <a href="[Renewal Link]" class="cta-button">Renew Subscription</a>
-    <p>If you have any questions or need assistance, feel free to contact our support team at [Support Email].</p>
-    <p>Thank you for choosing us!</p>
+    <p>I hope this message finds you well. I am pleased to inform you that a new client 
+      <strong>${assignedClient.name}</strong> , has been assigned to you. The client is in need of your expertise and assistance.</p>
+    <p>Please reach out to <strong>${assignedClient.name}</strong>  at your earliest convenience to introduce yourself and initiate the onboarding process. Here are the client's details:</p>
+   
+    <ul>
+      <li><strong>Name:</strong> ${assignedClient.name}</li>
+      <li><strong>Contact Information:</strong> ${assignedClient.contact}</li>
+      
+    </ul>
+    <!-- <p>If you have any questions or need additional information, please do not hesitate to contact me at abc@gmail.com.</p>
+    <p>Thank you for your dedication and commitment to our clients!</p> -->
+  
   </div>
+
+
 </body>
 </html>

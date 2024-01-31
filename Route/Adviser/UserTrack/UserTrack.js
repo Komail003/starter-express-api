@@ -6,15 +6,29 @@ const UserAgePensionModel = require("../../../Model/UserData/AgePension");
 
 const UserTrackModal = require("../../../Model/UserTrack/UserTrack");
 const UserTrackSchema = require("../../../schema/UserTrack/UserTrack");
+const assignToMail = require("../../Mailer/assignToMail");
 
 let GetAll = async (req, res) => {
-  const C = await UserTrackModal.find().sort({ Order: 1 });
+  console.log("Adviser_FK: ",req.params.Adviser_FK)
+  // const C = await UserTrackModal.find({Adviser_FK:req.params.Adviser_FK});
+  
+  const C = await UserTrackModal.find({Adviser_FK:req.params.Adviser_FK}).sort({ Order: 1 });
   try {
     res.send(C);
   } catch (err) {
     res.send("Error: " + err);
   }
 };
+
+
+router.get("/refer", async (req, res) => {
+   const C = await UserTrackModal.find({ReferredStatus: true});
+  try {
+    res.send(C);
+  } catch (err) {
+    res.send("Error: " + err);
+  }
+});
 
 let PostUser = async (req, res) => {
   const UserTrackModal_test = req.body;
@@ -111,6 +125,10 @@ let ReferUserToAdmin = async (req, res) => {
       let C = await foundUser.save();
 
       res.send(C);
+// res.send(foundUser)
+      
+assignToMail(C)
+
     } else {
       res.send("You Can not refer Duplicated Data");
     }
@@ -376,7 +394,7 @@ let CreateDuplicate = async (req, res) => {
   }
 };
 
-router.get("/", GetAll);
+router.get("/:Adviser_FK", GetAll);
 
 router.post("/Add", PostUser);
 
