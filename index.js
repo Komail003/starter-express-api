@@ -3,6 +3,7 @@ var cors = require('cors');
 // var helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 let verifyJWT = require('./MiddleWare/verifyJWT')
+const path = require('path'); 
 
 const App = Express();
 
@@ -26,15 +27,6 @@ const Mongo = Mongoose.connection;
 Mongo.on("open", () => {
   console.log("MongoDB Connected!");
 });
-
-
-App.get('/api', (req, res) => {
-  res.send('Hello, This is React Backend!');
-});
-
-//advisor login Api is in this rout
-// Route/LIHC/DI_threshold/DI_threshold
-
 
 // super admin
 App.use('/api/super_admin', require('./Route/super_admin/super_admin'));
@@ -123,7 +115,11 @@ App.use('/api/UserTrack-LIHC', require('./Route/UserData/LIHC'));
 App.use('/api/email', require('./Route/Mailer/mailer'));
 App.use('/api/emailReminder', require('./Route/Mailer/reminderMailer'));
 App.use('/api/pdfEmail', require('./Route/Mailer/pdfMailer'));
+App.use('/api/resetPassword', require('./Route/Mailer/forgotPass_Mailer'));
+App.use('/api/resetAPassword', require('./Route/Mailer/forgotPass_MailerAdmin'));
 
+
+App.use('/api/assignToMail', require('./Route/Mailer/assignToMail'));
 
 
 // adviser_theme
@@ -132,12 +128,24 @@ App.use('/uploads',Express.static('uploads'))
 
 
 // App.use(verifyJWT);
+App.use('/', require('./Route/Mailer/domainTest'));
 
 
-App.all('/', (req, res) => {
-    console.log("Just got a request!")
-    res.send('Yo!')
-})
+App.all('*', (req, res) => {
+  res.status(404);
+  if (req.accepts('html')) {
+      res.sendFile(path.join(__dirname, 'view', '404.html'));
+  } else if (req.accepts('json')) {
+      res.json({ "error": "404 Not Found" });
+  } else {
+      res.type('txt').send("404 Not Found");
+    }
+});
+
+// App.all('/', (req, res) => {
+//     console.log("Just got a request!")
+//     res.send('Yo!')
+// })
 
 // const port =process.env.PORT || 3000;
 const port =process.env.PORT || 7000;
