@@ -4,12 +4,12 @@ const nodemailer = require('nodemailer');
 
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.office365.com',
+    host: 'smtp.gmail.com',
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-        user: 'admin@denarolink.com.au',
-        pass: '&6LjfQ##InXHkM&s'
+        user: 'usamafaheem80@gmail.com',
+        pass: 'fmxf zrmd vcgk cagf'
     },
     tls: {
         rejectUnauthorized: false
@@ -106,7 +106,7 @@ async function assignToMailFun(  foundUser) {
 
 
     const mailOptions = {
-        from: 'admin@denarolink.com.au',
+        from: 'usamafaheem80@gmail.com',
         to: userEmail,
         // to: toEmails.join(','),
 

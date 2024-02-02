@@ -4,12 +4,12 @@ const nodemailer = require('nodemailer');
 const fs = require('fs');
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.office365.com',
+    host: 'smtp.gmail.com',
     port: 587,
     secure: false,
     auth: {
-        user: 'admin@denarolink.com.au',
-        pass: '&6LjfQ##InXHkM&s',
+        user: 'usamafaheem80@gmail.com',
+        pass: 'fmxf zrmd vcgk cagf',
     },
 });
 
@@ -27,7 +27,7 @@ const logoAttachment = {
 };
 
 const mailOptions = {
-    from: 'admin@denarolink.com.au',
+    from: 'usamafaheem80@gmail.com',
     to: 'usamasaeed3k@gmail.com', // Replace with the recipient's email address
     bcc: ['usamafaheem80@gmail.com', 'komailabbas376@gmail.com'], // BCC recipients
     subject: 'Age Pension Calculator Report',
