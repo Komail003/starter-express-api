@@ -297,6 +297,8 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
 MyRouter.post("/Add", upload.single("pdfFile"), async (req, res) => {
   // const { nameClient, emailClient } = req.body;
   // const myObj = { nameClient, emailClient };
+  console.log("Add api with PDF");
+
   const myObj = req.body;
 
   console.log(myObj);
@@ -323,6 +325,8 @@ async function sendEmail(myObj, pdfBytes) {
   console.log("SmtpSecure", SmtpSecure)
   const transporter = nodemailer.createTransport({
     host: myObj.SmtpHost,
+    // host: 'smtp.gmail.com',
+
     port: myObj.SmtpPort,
     secure: false, // true for 465, false for other ports
     auth: {

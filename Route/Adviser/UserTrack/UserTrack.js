@@ -70,12 +70,7 @@ let UpdateUsers = async (req, res) => {
 
     //! you must check Full schema for Updating in Other Tables
 
-    UpdateUser.UserName = UserTrack_Object.UserName;
-    UpdateUser.UserEmail = UserTrack_Object.UserEmail;
-    UpdateUser.DateTime = UserTrack_Object.DateTime;
-    UpdateUser.ReferredStatus = UserTrack_Object.ReferredStatus;
-    UpdateUser.isDuplicated = UserTrack_Object.isDuplicated;
-    UpdateUser.SoftDelete = UserTrack_Object.SoftDelete;
+    UpdateUser.isNotified = false
 
     UpdateUser = await UpdateUser.save();
     res.send(UpdateUser);
@@ -121,6 +116,7 @@ let ReferUserToAdmin = async (req, res) => {
   try {
     if (foundUser.isDuplicated != true) {
       foundUser.ReferredStatus = true;
+      foundUser.isNotified = true;
 
       let C = await foundUser.save();
 
@@ -394,6 +390,45 @@ let CreateDuplicate = async (req, res) => {
   }
 };
 
+let singleNotification = async (req, res) => {
+  console.log("req.body",req.body)
+  const clientID = req.body._id;
+  const foundUser = await UserTrackModal.findOne({ _id: clientID });
+  if (!foundUser) return res.status(404).send("client Not Found");
+  try {
+    foundUser.isNotified = false;
+      let C = await foundUser.save();
+      res.send(C);
+    
+  } catch (Error) {
+    res.send("Error: " + Error);
+  }
+};
+
+let updateNotifications = async (req, res) => {
+  try {
+    const foundUsers = await UserTrackModal.find({ isNotified: false });
+
+    console.log("foundUsers",foundUsers)
+
+    if (!foundUsers || foundUsers.length === 0) {
+      return res.status(404).send("Clients Not Found");
+    }
+
+    const updatePromises = foundUsers.map(async (foundUser) => {
+      foundUser.isNotified = true;
+      return foundUser.save();
+    });
+
+    const updatedUsers = await Promise.all(updatePromises);
+
+    res.send(updatedUsers);
+  } catch (error) {
+    res.status(500).send("Error: " + error.message);
+  }
+};
+
+
 router.get("/:Adviser_FK", GetAll);
 
 router.post("/Add", PostUser);
@@ -405,5 +440,8 @@ router.patch("/Update", UpdateUsers);
 router.delete("/Delete/:id", DeleteUsers);
 
 router.patch("/Refer/:id", ReferUserToAdmin);
+router.patch("/singleNotification", singleNotification);
+router.patch("/updateNotifications", updateNotifications);
+
 
 module.exports = router;

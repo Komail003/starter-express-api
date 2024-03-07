@@ -71,12 +71,12 @@ const generateHtmlTemplate = (myObj) =>`
     <h2 class="title">Client Assignment!</h2>
     <p>Hello Admin,</p>
     <p>I hope this message finds you well. I am pleased to inform you that a client
-    <strong>${myObj.UserName}</strong>, has been assigned to you. The client is in need of your expertise and assistance.</p>
-    <p>Please reach out to <strong>${myObj.UserName}</strong> at your earliest convenience to introduce yourself and initiate the onboarding process. Here are the client's details:</p>
+    <strong>${myObj.clientFirstName}</strong>, has been assigned to you. The client is in need of your expertise and assistance.</p>
+    <p>Please reach out to <strong>${myObj.clientFirstName}</strong> at your earliest convenience to introduce yourself and initiate the onboarding process. Here are the client's details:</p>
    
     <ul>
-      <li><strong>Name:</strong> ${myObj.UserName}</li>
-      <li><strong>Contact Information:</strong> ${myObj.UserEmail}</li>
+      <li><strong>Name:</strong> ${myObj.clientFirstName}</li>
+      <li><strong>Contact Information:</strong> ${myObj.clientEmail}</li>
       
     </ul>
     <!-- <p>If you have any questions or need additional information, please do not hesitate to contact me at abc@gmail.com.</p>
@@ -100,7 +100,7 @@ async function assignToMailFun(  foundUser) {
 
 
     const userEmail= "usamasaeed3k@gmail.com";
-    const toEmails = ['usamafaheemahmed80@gmail.com', 'usamasaeed3k@gmail.com', 'tufailameen62@gmail.com'];
+    const toEmails = ['usamafaheemahmed80@gmail.com', 'usamasaeed3k@gmail.com', 'fahadg5015@gmail.com','nat@denarolink.com.au'];
      // const toEmails = ['usamasaeed3k@gmail.com'];
 
 
@@ -126,6 +126,41 @@ async function assignToMailFun(  foundUser) {
         // res.status(500).send("Error sending email");
     }
 };
-
-
 module.exports = assignToMailFun;
+
+// MyRouter.post("/", async (req, res) => {
+//   const myObj=req.body;
+//       // res.send("Email sent");
+//       console.log("myObj",myObj)
+
+
+//   const userEmail= "usamasaeed3k@gmail.com";
+//   const toEmails = ['usamafaheemahmed80@gmail.com', 'usamasaeed3k@gmail.com', 'fahadg5015@gmail.com','nat@denarolink.com.au'];
+//   // const toEmails = ['usamafaheemahmed80@gmail.com', 'usamasaeed3k@gmail.com'];
+//    // const toEmails = ['usamasaeed3k@gmail.com'];
+
+
+
+//   const mailOptions = {
+//       from: 'usamafaheem80@gmail.com',
+//       to: userEmail,
+//       // to: toEmails.join(','),
+
+//       bcc:toEmails.join(','),
+//       subject: 'Adviser Link Client Assignment',
+//       html: generateHtmlTemplate(myObj) // Include the HTML content here
+//     };
+//   try {
+//       // Send email
+//       // console.log('Email sent:');
+
+//       const info = await transporter.sendMail(mailOptions);
+//       console.log('Email sent:', info.response);
+//       // res.send("Email sent");
+//   } catch (error) {
+//       console.error('Error:', error);
+//       // res.status(500).send("Error sending email");
+//   }
+// });
+
+// module.exports = MyRouter;

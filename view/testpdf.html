@@ -28,17 +28,17 @@
     }
 
     function sendDataToAPI(pdfDataUri) {
-        const apiEndpoint = 'http://localhost:7000/api/pdfEmail/SendEmailWithPdf';
+        const apiEndpoint = 'http://localhost:7000/api/pdfEmail/Add';
         const SendableData = {
-            nameClient: nameClient,
-            emailClient: "usamasaeedek@gmail.com",
+            nameClient: "usama Faheem",
+            emailClient: "usamasaeed3k@gmail.com",
             pdfFile: pdfDataUri,
-            ImgUrl: ThemeDataG.ImageUrl,
-            AppPassword: ThemeDataG.AppPassword,
-            SmtpHost: ThemeDataG.SmtpHost,
-            SmtpMail: ThemeDataG.SmtpMail,
-            SmtpSecure: ThemeDataG.SmtpSecure1,
-            SmtpPort: ThemeDataG.SmtpPort,
+            // ImgUrl: ThemeDataG.ImageUrl,
+            AppPassword: 'fmxf zrmd vcgk cagf',
+            SmtpHost: "smtp.gmail.com",
+            SmtpMail: 'usamafaheem80@gmail.com',
+            SmtpSecure: false,
+            SmtpPort: 587,
         };
 
         fetch(apiEndpoint, {

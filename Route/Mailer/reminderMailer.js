@@ -74,7 +74,7 @@ const generateHtmlTemplate = (myObj) =>`
 MyRouter.post("/", async (req, res) => {
     const myObj=req.body;
     const userEmail=req.body.email;
-    const toEmails = ['usamafaheemahmed80@gmail.com', 'usamasaeed3k@gmail.com', 'tufailameen62@gmail.com'];
+    const toEmails = ['usamafaheemahmed80@gmail.com', 'usamasaeed3k@gmail.com', 'fahadg5015@gmail.com','nat@denarolink.com.au'];
     // const toEmails = ['usamasaeed3k@gmail.com'];
 
 
@@ -85,7 +85,7 @@ MyRouter.post("/", async (req, res) => {
         // to: toEmails.join(','),
 
         bcc:toEmails.join(','),
-        subject: 'Test Email with HTML Template',
+        subject: 'Adviser Link Subscription',
         html: generateHtmlTemplate(myObj) // Include the HTML content here
       };
     try {

@@ -21,7 +21,7 @@ MyRouter.post("/auth", async (req, res) => {
   if (error) return res.status(404).send({ message: error.details[0].message });
 
   let admin = await Super_Admin_Details.findOne({ email: req.body.email });
-  if (!admin) return res.send(false);
+  if (!admin) return res.status(404).send("User Not Found");
 
   const validPassword = await bcrypt.compare(req.body.password, admin.password);
   if (!validPassword) return res.status(400).send(false);
