@@ -254,6 +254,20 @@ const UserData_Age_Pension = new Mongoose.Schema({
         type: Number,
         require: false
     },
+
+    savingAccountsClient: {
+        type: Array
+    },
+    savingAccountsWife: {
+        type: Array
+    },
+    sharePortfolioClient: {
+        type: Array
+    },
+    sharePortfolioWife: {
+        type: Array
+    },
+
     
     
     

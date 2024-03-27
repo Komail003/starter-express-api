@@ -26,12 +26,12 @@ MyRouter.get("/SampleTest", async (req, res) => {
 
 
 
-function Doc(address,title,obj) {
+function Doc(address, title, obj) {
   const htmlContent = `
   <!doctype html>
   <html lang="en">
     <head>
-      <title>`+title+`</title>
+      <title>`+ title + `</title>
       <!-- Required meta tags -->
       <meta charset="utf-8" />
       <meta
@@ -58,7 +58,7 @@ function Doc(address,title,obj) {
 
     <body class="p-0 m-0 vh-100 overflow-hidden">
 
-    <iframe src="`+address+`" class="p-0 m-0" onLoad="sendMassage()" ></iframe>
+    <iframe src="`+ address + `" class="p-0 m-0" onLoad="sendMassage()" ></iframe>
 
       <!-- Bootstrap JavaScript Libraries -->
       <script
@@ -89,8 +89,8 @@ function Doc(address,title,obj) {
             // Check if the contentWindow is not null
             if (iframeWindow) {
               let Data = {
-                ID:"`+obj._id+`",
-                Domain:"`+obj.Domain+`"
+                ID:"`+ obj._id + `",
+                Domain:"`+ obj.Domain + `"
               }
                 // Send a message to the iframe
                 iframeWindow.postMessage(Data, iframe.src);
@@ -117,22 +117,22 @@ MyRouter.get("/:Domain/LIHC", async (req, res) => {
   // Assuming that "domain_test" is always the second part in the URL
   var desiredData = parts[1];
   console.log("desiredData 14567890", desiredData); // This will output "domain_test"
-  
+
   const UserDomain = req.params.Domain;
   console.log("Got From UserDomain: ", UserDomain); // This will output "domain_test"
 
   const Adviser = await AdviserModal.findOne({ Domain: UserDomain });
 
   if (!Adviser) {
-    res.sendFile(path.join(__dirname,"..",'..', 'view', '404.html'));
+    res.sendFile(path.join(__dirname, "..", '..', 'view', '404.html'));
     // return res.status(404).send({ message: "User not found" });
   }
-  else{
+  else {
 
     console.log(Adviser);
 
-    // let UI = Doc('https://calculators.denarolink.com.au/21-Nov-V1/LIHC/',"Commonwealth seniors health care card calculator",Adviser);
-    let UI = Doc('http://127.0.0.1:5500/LIHC/index.html',"Low Income Health Care Card",Adviser);
+    let UI = Doc('https://calculators.denarolink.com.au/21-Nov-V1/LIHC/', "Commonwealth seniors health care card calculator", Adviser);
+    // let UI = Doc('http://127.0.0.1:5500/LIHC/index.html',"Low Income Health Care Card",Adviser);
     // console.log(UI)
     res.send(UI);
   }
@@ -147,21 +147,21 @@ MyRouter.get("/:Domain/CSHC", async (req, res) => {
   // Assuming that "domain_test" is always the second part in the URL
   var desiredData = parts[1];
   console.log("desiredData 14567890", desiredData); // This will output "domain_test"
-  
+
   const UserDomain = req.params.Domain;
   console.log("Got From UserDomain: ", UserDomain); // This will output "domain_test"
 
   const Adviser = await AdviserModal.findOne({ Domain: UserDomain });
 
   if (!Adviser) {
-    res.sendFile(path.join(__dirname,"..",'..', 'view', '404.html'));
+    res.sendFile(path.join(__dirname, "..", '..', 'view', '404.html'));
     // return res.status(404).send({ message: "User not found" });
   }
-  else{
+  else {
 
-   
-    // let UI = Doc('https://calculators.denarolink.com.au/21-Nov-V1/CSHC/',"Commonwealth seniors health care card calculator",Adviser);
-    let UI = Doc('http://127.0.0.1:5500/CSHC/index.html',"Commonwealth seniors health care card calculator",Adviser);
+
+    let UI = Doc('https://calculators.denarolink.com.au/21-Nov-V1/CSHC/', "Commonwealth seniors health care card calculator", Adviser);
+    // let UI = Doc('http://127.0.0.1:5500/CSHC/index.html',"Commonwealth seniors health care card calculator",Adviser);
 
     res.send(UI);
   }
@@ -184,13 +184,13 @@ MyRouter.get("/:Domain/Age-Pension", async (req, res) => {
   const Adviser = await AdviserModal.findOne({ Domain: UserDomain });
 
   if (!Adviser) {
-    res.sendFile(path.join(__dirname,"..",'..', 'view', '404.html'));
+    res.sendFile(path.join(__dirname, "..", '..', 'view', '404.html'));
     // return res.status(404).send({ message: "User not found" });
   }
-  else{
+  else {
 
-    // let UI = Doc('https://calculators.denarolink.com.au/21-Nov-V1/Age-Pension/',"Age pension calculator");
-    let UI = Doc('http://127.0.0.1:5500/Age-Pension/index.html',"Age pension calculator",Adviser);
+    let UI = Doc('https://calculators.denarolink.com.au/21-Nov-V1/Age-Pension/', "Age pension calculator");
+    // let UI = Doc('http://127.0.0.1:5500/Age-Pension/index.html',"Age pension calculator",Adviser);
 
     res.send(UI);
   }

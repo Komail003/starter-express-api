@@ -131,6 +131,7 @@ App.use('/api/resetAPassword', require('./Route/Mailer/forgotPass_MailerAdmin'))
 
 
 App.use('/api/assignToMail', require('./Route/Mailer/assignToMail'));
+App.use('/api/secureLink', require('./Route/Mailer/secureLink'));
 
 
 // adviser_theme

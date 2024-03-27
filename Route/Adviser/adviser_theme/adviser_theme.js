@@ -85,12 +85,12 @@ MyRouter.patch("/Update/:id", upload.single("ImageUrl"), async (req, res) => {
     } else {
       let url = req.body.ImageUrl;
       let desiredPart = url.split("/uploads/")[1];
-      console.log(desiredPart,url)
+      console.log(desiredPart, url)
       Updateadviser_theme.ImageUrl = desiredPart;
     }
 
 
-    console.log("Updateadviser_theme.ImageUrl= ",Updateadviser_theme.ImageUrl)
+    console.log("Updateadviser_theme.ImageUrl= ", Updateadviser_theme.ImageUrl)
 
 
     const updatedTheme = await Updateadviser_theme.save();
@@ -131,50 +131,6 @@ MyRouter.post("/Add", upload.single("ImageUrl"), async (req, res) => {
 });
 
 
-
-
-// MyRouter.patch("/Update/:id", upload.single("ImageUrl"), async (req, res) => {
-//   const Updateadviser_theme = await adviser_themeDetails.findById(
-//     req.params.id
-//   );
-
-//   if (!Updateadviser_theme) {
-//     return res.status(404).send("Adviser theme not found");
-//   }
-//   // Store the previous image path for deletion
-//   const previousImagePath = Updateadviser_theme.ImageUrl;
-
-//   (Updateadviser_theme.color = req.body.color),
-//     (Updateadviser_theme.ImageUrl = req.body.ImageUrl),
-//     (Updateadviser_theme.Email = req.body.Email),
-//     (Updateadviser_theme.Website = req.body.Website),
-//     (Updateadviser_theme.Adviser_Fk = req.body.Adviser_Fk),
-//     (Updateadviser_theme.Phone = req.body.Phone),
-//     (Updateadviser_theme.AppPassword = req.body.AppPassword),
-//     (Updateadviser_theme.SmtpHost = req.body.SmtpHost),
-//     (Updateadviser_theme.SmtpMail = req.body.SmtpMail),
-//     (Updateadviser_theme.CompanyName = req.body.CompanyName),
-//     (Updateadviser_theme.SmtpPort = req.body.SmtpPort),
-//     (Updateadviser_theme.SmtpSecure1 = req.body.SmtpSecure1);
-
-//   // Update the image if a new one is provided
-//   if (req.file) {
-//     Updateadviser_theme.ImageUrl = req.file.path;
-//   }
-
-//   try {
-//     const C = await Updateadviser_theme.save();
-
-//     // Delete the previous image
-//     if (previousImagePath) {
-//       await fs.unlink(previousImagePath);
-//     }
-//     res.send(C);
-//   } catch (err) {
-//     res.send("Error: " + err);
-//   }
-// });
-
 MyRouter.delete("/Delete/:id", async (req, res) => {
   const Deleteadviser_theme = await adviser_themeDetails.findById(req.params.id);
 
@@ -210,13 +166,6 @@ MyRouter.get("/getOne/:Adviser_Fk", async (req, res) => {
     const adviser_theme = await adviser_themeDetails.findOne({
       Adviser_Fk: req.params.Adviser_Fk,
     });
-    // console.log(adviser_theme);
-    // const fullPath = 'uploads\\1702295067947.jpg';
-    // const fullPath = adviser_theme.ImageUrl;
-
-    // const filename = fullPath.split("\\").pop();
-    // console.log("filename", filename);
-    // adviser_theme.ImageUrl = filename;
     res.send(adviser_theme);
   } catch (error) {
     // console.error("Error: ", error);
@@ -226,23 +175,23 @@ MyRouter.get("/getOne/:Adviser_Fk", async (req, res) => {
 
 MyRouter.get("/getOneDomain/:Domain", async (req, res) => {
 
-  const adviser_DetailsOne = await adviser_Details.findOne({Domain: req.params.Domain});
+  const adviser_DetailsOne = await adviser_Details.findOne({ Domain: req.params.Domain });
   if (!adviser_DetailsOne) {
     return res.status(400).send("Adviser theme not found");
   }
-  const adviserID= adviser_DetailsOne._id;
+  const adviserID = adviser_DetailsOne._id;
 
   try {
     const adviser_theme = await adviser_themeDetails.findOne({
       Adviser_Fk: adviserID,
     });
-   
+
     const fullPath = adviser_theme.ImageUrl;
 
     const filename = fullPath.split("\\").pop();
-    const baseUrl =`https://${req.get("host")}`;
-    adviser_theme.ImageUrl =`${baseUrl}/uploads/${filename}`;
-    
+    const baseUrl = `https://${req.get("host")}`;
+    adviser_theme.ImageUrl = `${baseUrl}/uploads/${filename}`;
+
     res.send(adviser_theme);
   } catch (error) {
     console.error("Error: ", error);

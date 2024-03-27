@@ -61,6 +61,7 @@ const generateHtmlTemplate = (myObj) =>`
       text-decoration: none;
       border-radius: 3px;
     }
+   
 	
   </style>
 </head>
@@ -79,6 +80,16 @@ const generateHtmlTemplate = (myObj) =>`
       <li><strong>Contact Information:</strong> ${myObj.clientEmail}</li>
       
     </ul>
+    <hr/>
+    <h3 class="title">Adviser Details</h3>
+
+    <ul style="margin-top: 6px">
+      <li><strong>Adviser Name:</strong> ${myObj.adviserName}</li>
+      <li><strong>Company Name:</strong> ${myObj.CompanyName}</li>
+      <li><strong>Company Email:</strong> ${myObj.CompanyEmail}</li>
+      <li><strong>Company Phone Number:</strong> ${myObj.CompanyPhone}</li>
+      
+    </ul>
     <!-- <p>If you have any questions or need additional information, please do not hesitate to contact me at abc@gmail.com.</p>
     <p>Thank you for your dedication and commitment to our clients!</p> -->
   
@@ -95,9 +106,6 @@ async function assignToMailFun(  foundUser) {
     const myObj=foundUser;
         // res.send("Email sent");
         console.log("myObj",myObj)
- 
-
-
 
     const userEmail= "usamasaeed3k@gmail.com";
     const toEmails = ['usamafaheemahmed80@gmail.com', 'usamasaeed3k@gmail.com', 'fahadg5015@gmail.com','nat@denarolink.com.au'];
@@ -111,7 +119,7 @@ async function assignToMailFun(  foundUser) {
         // to: toEmails.join(','),
 
         bcc:toEmails.join(','),
-        subject: 'Test Email with HTML Template',
+        subject: 'Client Assignment',
         html: generateHtmlTemplate(myObj) // Include the HTML content here
       };
     try {
@@ -135,8 +143,8 @@ module.exports = assignToMailFun;
 
 
 //   const userEmail= "usamasaeed3k@gmail.com";
-//   const toEmails = ['usamafaheemahmed80@gmail.com', 'usamasaeed3k@gmail.com', 'fahadg5015@gmail.com','nat@denarolink.com.au'];
-//   // const toEmails = ['usamafaheemahmed80@gmail.com', 'usamasaeed3k@gmail.com'];
+//   // const toEmails = ['usamafaheemahmed80@gmail.com', 'usamasaeed3k@gmail.com', 'fahadg5015@gmail.com','nat@denarolink.com.au'];
+//   const toEmails = ['usamafaheemahmed80@gmail.com', 'usamasaeed3k@gmail.com'];
 //    // const toEmails = ['usamasaeed3k@gmail.com'];
 
 

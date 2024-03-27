@@ -122,6 +122,11 @@ let UpdateUserAgePensions = async (req, res) => {
         UpdateUserAgePension.netProfit = UserTrack_Object.netProfit;
         UpdateUserAgePension.netAssetsWife = UserTrack_Object.netAssetsWife;
         UpdateUserAgePension.netProfitWife = UserTrack_Object.netProfitWife;
+
+        UpdateUserAgePension.savingAccountsClient = UserTrack_Object.savingAccountsClient;
+        UpdateUserAgePension.savingAccountsWife = UserTrack_Object.savingAccountsWife;
+        UpdateUserAgePension.sharePortfolioClient = UserTrack_Object.sharePortfolioClient;
+        UpdateUserAgePension.sharePortfolioWife = UserTrack_Object.sharePortfolioWife;
   
 
         UpdateUserAgePension = await UpdateUserAgePension.save();

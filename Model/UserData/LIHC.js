@@ -150,6 +150,7 @@ const UserData_LIHC = new Mongoose.Schema({
     overseasIncomeWife: {
         type: Number
     },
+    
 
 
     //Result Data

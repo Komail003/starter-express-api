@@ -6,6 +6,7 @@ const UserAgePensionModel = require("../../../Model/UserData/AgePension");
 
 const UserTrackModal = require("../../../Model/UserTrack/UserTrack");
 const UserTrackSchema = require("../../../schema/UserTrack/UserTrack");
+const adviserModal = require("../../../Model/Adviser/Adviser");
 const assignToMail = require("../../Mailer/assignToMail");
 
 let GetAll = async (req, res) => {
@@ -19,6 +20,21 @@ let GetAll = async (req, res) => {
     res.send("Error: " + err);
   }
 };
+
+let getUserById = async (req, res) => {
+  const user = await UserTrackModal.findOne({ _id: req.params.userID });
+
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+
+  try {
+    res.send(user);
+  } catch (err) {
+    res.send("Error: " + err);
+  }
+};
+
 
 
 router.get("/refer", async (req, res) => {
@@ -110,8 +126,13 @@ let DeleteUsers = async (req, res) => {
 let ReferUserToAdmin = async (req, res) => {
   const UserRefer_id = req.params.id;
   const foundUser = await UserTrackModal.findOne({ _id: UserRefer_id });
+  const foundAdviser = await adviserModal.findOne({ _id: foundUser.Adviser_FK });
   // console.log(foundUser);
   //     res.send(foundUser);
+  foundUser.adviserName=  foundAdviser.adviserName;
+  foundUser.CompanyName=  foundAdviser.CompanyName;
+  foundUser.CompanyEmail=  foundAdviser.CompanyEmail;
+  foundUser.CompanyPhone=  foundAdviser.CompanyPhone;
 
   try {
     if (foundUser.isDuplicated != true) {
@@ -122,6 +143,10 @@ let ReferUserToAdmin = async (req, res) => {
 
       res.send(C);
 // res.send(foundUser)
+  C.adviserName=  foundAdviser.adviserName;
+  C.CompanyName=  foundAdviser.CompanyName;
+  C.CompanyEmail=  foundAdviser.CompanyEmail;
+  C.CompanyPhone=  foundAdviser.CompanyPhone;
       
 assignToMail(C)
 
@@ -154,14 +179,31 @@ let CreateDuplicate = async (req, res) => {
       // await FoundUser[0].save();
 
       let DuplicatedRow = {
-        UserName: req.body.UserName,
-        UserEmail: req.body.UserEmail,
-        DateTime: req.body.DateTime,
+        _id: res.data.id,
+        relationshipStatus: duplicatedData.relationshipStatus ,
+        Scenario: duplicatedData.Scenario ,
+        selectedCalculator: duplicatedData.selectedCalculator ,
+
+        clientPreferredName: duplicatedData.clientPreferredName + " (Copy) ",
+        clientFirstName: duplicatedData.clientFirstName ,
+        clientSurname: duplicatedData.clientSurname ,
+        clientEmail: duplicatedData.clientEmail,
+        clientPhone: duplicatedData.clientPhone,
+        clientDOB: duplicatedData.clientDOB,
+
+        partnerFirstName: duplicatedData.partnerFirstName + " (Copy) ",
+        partnerPreferredName: duplicatedData.partnerPreferredName ,
+        partnerSurname: duplicatedData.partnerSurname ,
+        partnerDOB: duplicatedData.partnerDOB,
+        partnerEmail: duplicatedData.partnerEmail,
+        partnerPhone: duplicatedData.partnerPhone,
+
+        DateTime: duplicatedData.DateTime,
         ReferredStatus: false,
         isDuplicated: true,
-        SoftDelete: req.body.SoftDelete,
-        Calculator: req.body.Calculator,
-        Order: req.body.Order + FoundUser.length / 10,
+        SoftDelete: duplicatedData.SoftDelete,
+        Calculator: duplicatedData.Calculator,
+        Order: duplicatedData.Order + filteredArray.length / 10,
       };
 
       // console.log(DuplicatedRow);
@@ -405,9 +447,9 @@ let singleNotification = async (req, res) => {
   }
 };
 
-let updateNotifications = async (req, res) => {
+let allNotifications = async (req, res) => {
   try {
-    const foundUsers = await UserTrackModal.find({ isNotified: false });
+    const foundUsers = await UserTrackModal.find({ isNotified: true });
 
     console.log("foundUsers",foundUsers)
 
@@ -416,7 +458,7 @@ let updateNotifications = async (req, res) => {
     }
 
     const updatePromises = foundUsers.map(async (foundUser) => {
-      foundUser.isNotified = true;
+      foundUser.isNotified = false;
       return foundUser.save();
     });
 
@@ -430,6 +472,8 @@ let updateNotifications = async (req, res) => {
 
 
 router.get("/:Adviser_FK", GetAll);
+router.get("/getUser/:userID", getUserById);
+
 
 router.post("/Add", PostUser);
 
@@ -441,7 +485,7 @@ router.delete("/Delete/:id", DeleteUsers);
 
 router.patch("/Refer/:id", ReferUserToAdmin);
 router.patch("/singleNotification", singleNotification);
-router.patch("/updateNotifications", updateNotifications);
+router.patch("/allNotifications", allNotifications);
 
 
 module.exports = router;

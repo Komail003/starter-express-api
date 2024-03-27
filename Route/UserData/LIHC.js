@@ -98,6 +98,8 @@ let UpdateUserLIHC = async (req, res) => {
         UpdateUserLIHC.totalIncome1 = UserTrack_Object.totalIncome1;
         UpdateUserLIHC.incomeThreshold1 = UserTrack_Object.incomeThreshold1;
 
+
+
         UpdateUserLIHC = await UpdateUserLIHC.save();
         res.send(UpdateUserLIHC);
 
