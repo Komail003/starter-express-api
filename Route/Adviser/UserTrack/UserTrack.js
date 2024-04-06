@@ -470,19 +470,83 @@ let allNotifications = async (req, res) => {
   }
 };
 
+let updateClient =  async (req, res) => {
+    const existingId = req.body._id;
+    const updatedData = req.body;
+    console.log("updatedData", updatedData);
+    // console.log("existingId", existingId);
+    try {
+      // Fetch the existing document from the database
+      const existingClient = await UserTrackModal.findOne({ _id: req.body._id});
+  
+      if (!existingClient) {
+        return res.status(404).send("Client not found");
+      }
+
+      if(updatedData.relationshipStatus=="Single"){
+        existingClient.partnerFirstName= undefined;
+        existingClient.partnerSurname= undefined;
+        existingClient.partnerPreferredName= undefined;
+        existingClient.partnerDOB= undefined;
+        existingClient.partnerEmail= undefined;
+        existingClient.partnerPhone= undefined;
+
+        existingClient.clientFirstName= updatedData.clientFirstName;
+        existingClient.clientSurname= updatedData.clientSurname;
+        existingClient.clientPreferredName= updatedData.clientPreferredName;
+        existingClient.clientDOB= updatedData.clientDOB;
+        existingClient.clientEmail= updatedData.clientEmail;
+        existingClient.clientPhone= updatedData.clientPhone;
+        existingClient.relationshipStatus= updatedData.relationshipStatus;
+      }
+      else{
+        existingClient.partnerFirstName= updatedData.partnerFirstName;
+        existingClient.partnerSurname= updatedData.partnerSurname;
+        existingClient.partnerPreferredName= updatedData.partnerPreferredName;
+        existingClient.partnerDOB= updatedData.partnerDOB;
+        existingClient.partnerEmail= updatedData.partnerEmail;
+        existingClient.partnerPhone= updatedData.partnerPhone;
+
+        existingClient.clientFirstName= updatedData.clientFirstName;
+        existingClient.clientSurname= updatedData.clientSurname;
+        existingClient.clientPreferredName= updatedData.clientPreferredName;
+        existingClient.clientDOB= updatedData.clientDOB;
+        existingClient.clientEmail= updatedData.clientEmail;
+        existingClient.clientPhone= updatedData.clientPhone;
+        existingClient.relationshipStatus= updatedData.relationshipStatus;
+     
+  
+      }
+  
+      // delete updatedData._id;
+      // // Validate the updated data against the schema
+      // const { error } = ClientSchema(updatedData);
+  
+      // if (error) {
+      //   return res.status(400).send({ message: error.details[0].message });
+      // }
+     
+
+      
+      // Update the existing Client document
+      // Object.assign(existingClient, updatedData);
+  
+      // Save the updated document back to the database
+      const updatedClient = await existingClient.save();
+  // console.log("updatedClient",updatedClient)
+      res.send(updatedClient);
+    } catch (err) {
+      res.status(500).send("Error: " + err);
+    }
+  };
 
 router.get("/:Adviser_FK", GetAll);
 router.get("/getUser/:userID", getUserById);
-
-
 router.post("/Add", PostUser);
-
 router.post("/Duplicate", CreateDuplicate);
-
 router.patch("/Update", UpdateUsers);
-
+router.patch("/updateClient", updateClient);
 router.delete("/Delete/:id", DeleteUsers);
-
 router.patch("/Refer/:id", ReferUserToAdmin);
 router.patch("/singleNotification", singleNotification);
 router.patch("/allNotifications", allNotifications);

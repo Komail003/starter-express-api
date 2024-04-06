@@ -3,7 +3,7 @@ var cors = require('cors');
 // var helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 let verifyJWT = require('./MiddleWare/verifyJWT')
-const path = require('path'); 
+const path = require('path');
 const App = Express();
 
 
@@ -115,9 +115,6 @@ App.use('/api/UserTrackAddCSHC', require('./Route/combineduserCSHC/combinedUserC
 
 App.use('/api/UserTrackAddPension', require('./Route/combineduserPension/combineduserPension'));
 
-
-
-
 App.use('/api/UserTrack-AgePension', require('./Route/UserData/AgePension'));
 App.use('/api/UserTrack-CSHC', require('./Route/UserData/CSHC'));
 App.use('/api/UserTrack-LIHC', require('./Route/UserData/LIHC'));
@@ -136,7 +133,7 @@ App.use('/api/secureLink', require('./Route/Mailer/secureLink'));
 
 // adviser_theme
 App.use('/api/adviser_theme', require('./Route/Adviser/adviser_theme/adviser_theme'));
-App.use('/uploads',Express.static('uploads'))
+App.use('/uploads', Express.static('uploads'))
 
 
 // App.use(verifyJWT);
@@ -144,19 +141,16 @@ App.use('/', require('./Route/Mailer/domainTest'));
 App.all('*', (req, res) => {
   res.status(404);
   if (req.accepts('html')) {
-      res.sendFile(path.join(__dirname, 'view', '404.html'));
+    res.sendFile(path.join(__dirname, 'view', '404.html'));
   } else if (req.accepts('json')) {
-      res.json({ "error": "404 Not Found" });
+    res.json({ "error": "404 Not Found" });
   } else {
-      res.type('txt').send("404 Not Found");
-    }
+    res.type('txt').send("404 Not Found");
+  }
 });
-
-
 
 const port = process.env.PORT || 7000;
 
-
 App.listen(port, () => {
-  console.log("Server Running on port:",port);
+  console.log("Server Running on port:", port);
 });
