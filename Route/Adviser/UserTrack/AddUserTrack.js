@@ -10,6 +10,17 @@ async function PostUserTrack(objOfUserTracking, res, session) {
     const UserTrackModal_test = objOfUserTracking;
     // console.log("PostUserTrack", UserTrackModal_test)
 
+    if(UserTrackModal_test.relationshipStatus=="Single"){
+
+        UserTrackModal_test.partnerFirstName= undefined;
+        UserTrackModal_test.partnerSurname= undefined;
+        UserTrackModal_test.partnerPreferredName= undefined;
+        UserTrackModal_test.partnerDOB= undefined;
+        UserTrackModal_test.partnerEmail= undefined;
+        UserTrackModal_test.partnerPhone= undefined;
+    }
+
+
     const { error } = UserTrackSchema(UserTrackModal_test);
 
     if (error) {
