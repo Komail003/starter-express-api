@@ -44,7 +44,10 @@ const UserData_AgePension_schema = (threshold) => {
     totalIncome1: Joi.number(),
     incomeThreshold1: Joi.number(),
     
-   
+    savingAccountsClient:Joi.array(),
+    savingAccountsWife:Joi.array(),
+    sharePortfolioClient:Joi.array(),
+    sharePortfolioWife:Joi.array(),
     
   });
   return schema.validate(threshold);

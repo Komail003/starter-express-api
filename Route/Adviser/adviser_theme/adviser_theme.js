@@ -189,7 +189,7 @@ MyRouter.get("/getOneDomain/:Domain", async (req, res) => {
     const fullPath = adviser_theme.ImageUrl;
 
     const filename = fullPath.split("\\").pop();
-    const baseUrl = `https://${req.get("host")}`;
+    const baseUrl = `https://${req.get("host")}`; //* change back with https please
     adviser_theme.ImageUrl = `${baseUrl}/uploads/${filename}`;
 
     res.send(adviser_theme);

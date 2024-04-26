@@ -92,7 +92,11 @@ let UpdateUserCSHC = async (req, res) => {
         UpdateUserCSHC.wifePensionAccountBased = UserTrack_Object.wifePensionAccountBased;
         UpdateUserCSHC.totalIncome = UserTrack_Object.totalIncome;
         UpdateUserCSHC.threshold = UserTrack_Object.threshold;
-
+        
+        UpdateUserCSHC.savingAccountsClient = UserTrack_Object.savingAccountsClient;
+        UpdateUserCSHC.savingAccountsWife = UserTrack_Object.savingAccountsWife;
+        UpdateUserCSHC.sharePortfolioClient = UserTrack_Object.sharePortfolioClient;
+        UpdateUserCSHC.sharePortfolioWife = UserTrack_Object.sharePortfolioWife;
         
         
         UpdateUserCSHC = await UpdateUserCSHC.save();

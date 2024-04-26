@@ -161,6 +161,18 @@ const UserData_LIHC = new Mongoose.Schema({
         type: Number
     },
     //Result Data
+    savingAccountsClient: {
+        type: Array
+    },
+    savingAccountsWife: {
+        type: Array
+    },
+    sharePortfolioClient: {
+        type: Array
+    },
+    sharePortfolioWife: {
+        type: Array
+    },
 
 })
 

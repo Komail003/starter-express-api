@@ -97,9 +97,12 @@ let UpdateUserLIHC = async (req, res) => {
         UpdateUserLIHC.overseasIncomeWife = UserTrack_Object.overseasIncomeWife;
         UpdateUserLIHC.totalIncome1 = UserTrack_Object.totalIncome1;
         UpdateUserLIHC.incomeThreshold1 = UserTrack_Object.incomeThreshold1;
+        
 
-
-
+        UpdateUserLIHC.savingAccountsClient = UserTrack_Object.savingAccountsClient;
+        UpdateUserLIHC.savingAccountsWife = UserTrack_Object.savingAccountsWife;
+        UpdateUserLIHC.sharePortfolioClient = UserTrack_Object.sharePortfolioClient;
+        UpdateUserLIHC.sharePortfolioWife = UserTrack_Object.sharePortfolioWife;
         UpdateUserLIHC = await UpdateUserLIHC.save();
         res.send(UpdateUserLIHC);
 
